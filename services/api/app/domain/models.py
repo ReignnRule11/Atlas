@@ -64,7 +64,7 @@ class ProfessionalProfile(Base):
     headline: Mapped[str | None] = mapped_column(String(180))
     summary: Mapped[str | None] = mapped_column(Text)
     location: Mapped[str | None] = mapped_column(String(160))
-    visibility: Mapped[Visibility] = mapped_column(Enum(Visibility, name="profile_visibility"), nullable=False, default=Visibility.PRIVATE, server_default=Visibility.PRIVATE.value)
+    visibility: Mapped[Visibility] = mapped_column(Enum(Visibility, values_callable=lambda values: [item.value for item in values], name="profile_visibility"), nullable=False, default=Visibility.PRIVATE, server_default=Visibility.PRIVATE.value)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
 
@@ -123,7 +123,7 @@ class Project(Base):
     title: Mapped[str] = mapped_column(String(160), nullable=False)
     description: Mapped[str | None] = mapped_column(Text)
     project_url: Mapped[str | None] = mapped_column(String(2048))
-    visibility: Mapped[Visibility] = mapped_column(Enum(Visibility, name="project_visibility"), nullable=False, default=Visibility.PRIVATE, server_default=Visibility.PRIVATE.value)
+    visibility: Mapped[Visibility] = mapped_column(Enum(Visibility, values_callable=lambda values: [item.value for item in values], name="project_visibility"), nullable=False, default=Visibility.PRIVATE, server_default=Visibility.PRIVATE.value)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
 
@@ -142,10 +142,10 @@ class EvidenceItem(Base):
     description: Mapped[str | None] = mapped_column(Text)
     evidence_url: Mapped[str | None] = mapped_column(String(2048))
     provenance: Mapped[str] = mapped_column(String(40), nullable=False, default="owner_submitted", server_default="owner_submitted")
-    verification_status: Mapped[EvidenceStatus] = mapped_column(Enum(EvidenceStatus, name="evidence_status"), nullable=False, default=EvidenceStatus.SELF_REPORTED, server_default=EvidenceStatus.SELF_REPORTED.value)
+    verification_status: Mapped[EvidenceStatus] = mapped_column(Enum(EvidenceStatus, values_callable=lambda values: [item.value for item in values], name="evidence_status"), nullable=False, default=EvidenceStatus.SELF_REPORTED, server_default=EvidenceStatus.SELF_REPORTED.value)
     verifier_owner_id: Mapped[uuid.UUID | None] = mapped_column(Uuid(as_uuid=True), ForeignKey("owners.id", ondelete="SET NULL"))
     verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-    visibility: Mapped[Visibility] = mapped_column(Enum(Visibility, name="evidence_visibility"), nullable=False, default=Visibility.PRIVATE, server_default=Visibility.PRIVATE.value)
+    visibility: Mapped[Visibility] = mapped_column(Enum(Visibility, values_callable=lambda values: [item.value for item in values], name="evidence_visibility"), nullable=False, default=Visibility.PRIVATE, server_default=Visibility.PRIVATE.value)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     __table_args__ = (
