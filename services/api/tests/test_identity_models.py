@@ -14,11 +14,10 @@ def test_identity_and_proof_tables_are_registered():
 
 
 def test_profile_and_evidence_default_to_private_and_unverified():
-    profile = ProfessionalProfile(owner_id=None, display_name="Example")
-    evidence = EvidenceItem(project_id=None, title="Repository contribution")
-    assert profile.visibility == Visibility.PRIVATE
-    assert evidence.visibility == Visibility.PRIVATE
-    assert evidence.verification_status == EvidenceStatus.SELF_REPORTED
+    assert ProfessionalProfile.__table__.c.visibility.default.arg == Visibility.PRIVATE
+    assert Project.__table__.c.visibility.default.arg == Visibility.PRIVATE
+    assert EvidenceItem.__table__.c.visibility.default.arg == Visibility.PRIVATE
+    assert EvidenceItem.__table__.c.verification_status.default.arg == EvidenceStatus.SELF_REPORTED
 
 
 def test_evidence_verification_requires_auditor_and_timestamp_constraint():
