@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.routes.auth import router as auth_router
 from app.routes.profiles import router as profiles_router
+from app.routes.skills import router as skills_router
+from app.routes.experiences import router as experiences_router
 from app.routes.health import router as health_router
 
 
@@ -18,3 +20,5 @@ app.add_middleware(
 app.include_router(health_router)
 app.include_router(auth_router)
 app.include_router(profiles_router)
+app.include_router(skills_router)
+app.include_router(experiences_router)
