@@ -6,6 +6,8 @@ from app.routes.auth import router as auth_router
 from app.routes.profiles import router as profiles_router
 from app.routes.skills import router as skills_router
 from app.routes.experiences import router as experiences_router
+from app.routes.projects import router as projects_router
+from app.routes.evidence import router as evidence_router
 from app.routes.health import router as health_router
 
 
@@ -22,3 +24,5 @@ app.include_router(auth_router)
 app.include_router(profiles_router)
 app.include_router(skills_router)
 app.include_router(experiences_router)
+app.include_router(projects_router)
+app.include_router(evidence_router)
